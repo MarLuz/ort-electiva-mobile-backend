@@ -9,9 +9,8 @@ const {
   putTodoController,
 } = require("../controllers/todos.controller");
 const payloadMiddleWare = require("../middlewares/paylod.middleware");
-const todoSchema = require("../models/schemas/toDoSchema");
+const todoSchema = require("../models/schemas/todo.schema");
 
-// Private Routes
 router.get("/todos", getTodosController);
 router.get("/todos/:id", getTodoController);
 router.post("/todos", payloadMiddleWare(todoSchema), postTodoController);

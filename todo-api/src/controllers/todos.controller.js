@@ -5,12 +5,12 @@ const {
   findToDo,
   deleteToDo,
   upateToDo,
-} = require("../models/storage");
+} = require("../models/todo.model");
 const sendEmail = require("../services/mailjet.service");
 
 const getTodosController = (req, res) => {
-  console.log(req.query);
-  res.status(200).json(getToDos());
+  const { id } = req.user;
+  res.status(200).json(getToDos(id));
 };
 
 const getTodoController = (req, res) => {
@@ -26,8 +26,8 @@ const getTodoController = (req, res) => {
 };
 
 const postTodoController = async (req, res) => {
-  const { body } = req;
-  createToDo(body.title);
+  const { body, user } = req;
+  createToDo(body.title, user.id);
   // const response = await sendEmail(body.title);
   res.status(201).json({
     message: "Tarea creada correctamente",

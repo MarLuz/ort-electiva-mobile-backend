@@ -1,0 +1,151 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "To-Do API",
+    "version": "1.0.0",
+    "description": "API REST para gestionar tareas (To-Dos) con operaciones CRUD, protegida con JWT."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001",
+      "description": "Servidor de desarrollo"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "Todo": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "number", "example": "1" },
+          "title": { "type": "string", "example": "Comprar leche" },
+          "completed": { "type": "boolean", "example": false }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "paths": {
+    "v1/todos": {
+      "get": {
+        "summary": "Obtener todas las tareas",
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Lista de tareas obtenida con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Todo" }
+                }
+              }
+            }
+          },
+          "401": { "description": "No autorizado" }
+        }
+      },
+      "post": {
+        "summary": "Crear una nueva tarea",
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Todo" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Tarea creada exitosamente",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Todo" }
+              }
+            }
+          },
+          "401": { "description": "No autorizado" }
+        }
+      }
+    },
+    "/todos/{id}": {
+      "get": {
+        "summary": "Obtener una tarea por ID",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalles de la tarea",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Todo" }
+              }
+            }
+          },
+          "401": { "description": "No autorizado" },
+          "404": { "description": "Tarea no encontrada" }
+        }
+      },
+      "put": {
+        "summary": "Actualizar una tarea",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Todo" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Tarea actualizada exitosamente" },
+          "401": { "description": "No autorizado" },
+          "404": { "description": "Tarea no encontrada" }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar una tarea",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Tarea eliminada exitosamente" },
+          "401": { "description": "No autorizado" },
+          "404": { "description": "Tarea no encontrada" }
+        }
+      }
+    }
+  }
+}
