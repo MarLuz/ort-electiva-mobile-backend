@@ -9,11 +9,15 @@ const {
   putTodoController,
 } = require("../controllers/todos.controller");
 const payloadMiddleWare = require("../middlewares/paylod.middleware");
-const todoSchema = require("../models/schemas/todo.schema");
+const todoSchemaValidation = require("./validations/todo.validation");
 
 router.get("/todos", getTodosController);
 router.get("/todos/:id", getTodoController);
-router.post("/todos", payloadMiddleWare(todoSchema), postTodoController);
+router.post(
+  "/todos",
+  payloadMiddleWare(todoSchemaValidation),
+  postTodoController
+);
 router.delete("/todos/:id", deleteTodoController);
 router.put("/todos/:id", putTodoController);
 

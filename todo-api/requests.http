@@ -1,0 +1,12 @@
+POST http://localhost:3001/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "martin.luz",
+  "password": "martin.1234"
+}
+
+###
+GET http://localhost:3001/v1/todos
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZjU3ZTlmODE4NWE0MmNjYjIwODUyNiIsInVzZXJuYW1lIjoibWFydGluLmx1eiIsImlhdCI6MTc0NDMyNTgzNiwiZXhwIjoxNzQ0MzI5NDM2fQ.xLO0X0rwuey4Yubjcqpi87_HhcqDhRJQ3by4aGiCSfU
+Content-Type: application/json

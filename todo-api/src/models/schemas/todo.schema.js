@@ -1,8 +1,19 @@
-const Joi = require("joi");
+const mongoose = require("mongoose");
 
-// https://joi.dev/api/?v=17.13.3
-const todoSchema = Joi.object({
-  title: Joi.string().min(3).max(20).required(),
-});
+const todoSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    title: { type: String, required: true },
+    description: { type: String },
+    completed: { type: Boolean, default: false },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 module.exports = todoSchema;

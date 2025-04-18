@@ -1,18 +1,16 @@
 const jwt = require("jsonwebtoken");
-
 const {
-  saveUser,
-  findUserByUsername,
   findUser,
   isValidPassword,
-} = require("../models/user.model");
+  saveUser,
+} = require("../respositories/user.repository");
 
 const AUTH_SECRET_KEY = process.env.AUTH_SECRET_KEY;
 
 const postAuthLogin = async (req, res) => {
   const { body } = req;
   const { username, password } = body;
-  const user = findUser(username);
+  const user = await findUser(username);
 
   if (!user) {
     res.status(400).json({ message: "Credenciales inválidas" });
@@ -23,9 +21,10 @@ const postAuthLogin = async (req, res) => {
     res.status(401).json({ message: "Credenciales inválidas" });
     return;
   }
+  const userId = user._id.toString();
 
   const token = jwt.sign(
-    { id: user.id, username: user.username },
+    { id: userId, username: user.username },
     AUTH_SECRET_KEY,
     {
       expiresIn: "1h",
@@ -39,12 +38,17 @@ const postAuthSignUp = async (req, res) => {
   const { body } = req;
   const { name, username, password } = body;
 
-  if (findUserByUsername(username)) {
+  const user = await findUser(username);
+  if (user) {
     res.status(400).json({ message: "Nombre de usuario ya en uso" });
     return;
   }
-  const userID = await saveUser(name, username, password);
-  res.status(201).json({ message: "Usuario creado exitosamente", id: userID });
+  try {
+    await saveUser(name, username, password);
+    res.status(201).json({ message: "Usuario creado exitosamente" });
+  } catch (error) {
+    res.status(500).json({ message: "Ha ocurrido un error inesperado" });
+  }
 };
 
 module.exports = {
