@@ -1,7 +1,6 @@
 {
   "name": "todo-api",
   "version": "1.0.0",
-  "type": "module",
   "description": "Esta es mi primer API con express",
   "main": "index.js",
   "scripts": {
