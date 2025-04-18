@@ -4,7 +4,6 @@ const morgan = require("morgan");
 const cors = require("cors");
 const app = express();
 
-const loggerMiddleWare = require("./middlewares/logger.middleware");
 const authMiddleWare = require("./middlewares/auth.middleware");
 const privateRouter = require("./routes/private.router");
 const publicRouter = require("./routes/public.router");
@@ -25,7 +24,6 @@ const connectMongoDB = require("./models/mongo.client");
 
 // Middleware
 app.use(express.json());
-app.use(loggerMiddleWare);
 app.use(morgan("dev"));
 app.use(cors());
 
