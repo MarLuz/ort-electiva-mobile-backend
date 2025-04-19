@@ -1,5 +1,5 @@
 const healthController = (req, res) => {
-  res.status(200).send("OK");
+  res.status(200).send("healthy");
 };
 
 const pingController = (req, res) => {
