@@ -15,6 +15,7 @@
   "author": "Martín Luz",
   "license": "ISC",
   "dependencies": {
+    "@upstash/redis": "^1.34.8",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
