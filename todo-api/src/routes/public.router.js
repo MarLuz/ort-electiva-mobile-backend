@@ -8,8 +8,6 @@ const {
   pingController,
 } = require("../controllers/public.controller");
 
-app.use(express.static("public"));
-
 publicRouter.use(
   "/swagger",
   swaggerUi.serve,

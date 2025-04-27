@@ -37,6 +37,7 @@ const connectToRedis = require("./services/redis.service");
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(cors());
+app.use(express.static("public"));
 
 // Public
 app.use("/", publicRouter);
