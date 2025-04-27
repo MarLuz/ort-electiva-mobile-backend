@@ -8,12 +8,7 @@ const {
   pingController,
 } = require("../controllers/public.controller");
 
-publicRouter.get("/health", healthController);
-publicRouter.get("/ping", pingController);
-
-publicRouter.get("/swagger/swagger.json", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../docs/swagger.json"));
-});
+app.use(express.static("public"));
 
 publicRouter.use(
   "/swagger",
@@ -25,5 +20,8 @@ publicRouter.use(
     },
   })
 );
+
+publicRouter.get("/health", healthController);
+publicRouter.get("/ping", pingController);
 
 module.exports = publicRouter;
