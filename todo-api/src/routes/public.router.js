@@ -27,6 +27,7 @@ publicRouter.use(
     swaggerOptions: {
       url: "/swagger/swagger.json",
     },
+    customCssUrl: "https://unpkg.com/swagger-ui-dist/swagger-ui.css",
   })
 );
 
