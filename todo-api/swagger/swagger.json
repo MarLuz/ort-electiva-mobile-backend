@@ -36,7 +36,7 @@
     }
   ],
   "paths": {
-    "v1/todos": {
+    "/v1/todos": {
       "get": {
         "summary": "Obtener todas las tareas",
         "security": [{ "BearerAuth": [] }],
