@@ -1,13 +1,24 @@
 const express = require("express");
 const swaggerUi = require("swagger-ui-express");
-const publicRouter = express.Router();
 const path = require("path");
+const fs = require("fs");
+
+const publicRouter = express.Router();
 
 const {
   healthController,
   pingController,
 } = require("../controllers/public.controller");
 
+// Ruta para servir swagger.json como archivo estático
+publicRouter.get("/swagger/swagger.json", (req, res) => {
+  const filePath = path.join(__dirname, "../swagger.json");
+  const jsonData = fs.readFileSync(filePath, "utf8");
+  res.setHeader("Content-Type", "application/json");
+  res.send(jsonData);
+});
+
+// Montar Swagger UI y que cargue el archivo desde la ruta servida arriba
 publicRouter.use(
   "/swagger",
   swaggerUi.serve,
