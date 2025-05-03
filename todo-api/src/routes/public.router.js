@@ -12,7 +12,7 @@ const {
 
 // Ruta para servir swagger.json como archivo estático
 publicRouter.get("/swagger/swagger.json", (req, res) => {
-  const filePath = path.join(__dirname, "../swagger.json");
+  const filePath = path.join(__dirname, "../swagger/swagger.json");
   const jsonData = fs.readFileSync(filePath, "utf8");
   res.setHeader("Content-Type", "application/json");
   res.send(jsonData);
